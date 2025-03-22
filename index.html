@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royzen Portfolio</title>
+</head>
+<body>
+
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <h2>My Contact</h2>
+            <div class="contact-info">
+                <p>Email: royzenanggatama@gmail.com</p>
+                <p>Phone: 081211027931</p>
+                <p>LinkedIn: <a target="_blank" href="https://www.linkedin.com/in/royzenanggatama/">Royzen Anggatama</a></p>
+            </div>
+            <button class="close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <header>
+        <nav>
+            <span style="font-family: 'Brush Script MT', cursive; font-size: 25px;">Royzen Anggatama</span>
+            <button class="contact-btn" onclick="openModal()">Contact Me!</button>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <div class="logo">
+                <img src="assets/cetak (1).JPG" alt="logo" class="logo-img">
+            </div>
+            <div class="greeting">
+               <h1>Hi, I'm Royzen Anggatama</h1>
+               <span class="wave">👋</span>
+            </div>
+            
+            <div>
+                <p class="bio-text" id="typewriter"></p>  
+            </div>
+        </div>
+        <div class="container">
+            <div class="about">
+                <h2>✨ About Me</h2>
+                <br>
+                <p>
+                    I'm a Computer Science graduate passionate about UI/UX design and software development. I love creating apps and tools that help people, and I'm always eager to learn and collaborate. I've worked on various web and mobile projects, mentored fellow students, and actively volunteered, all of which have shaped my belief that teamwork makes anything possible.
+                </p>
+            </div>
+            <div class="skills">
+                <img style="height: 70px;" src="assets/vuejs.png" alt="">
+                <img style="height: 70px;" src="assets/react.png" alt="">
+                <img style="height: 70px;" src="assets/nodejs.png" alt="">
+                <img style="height: 70px;" src="assets/mysql.png" alt="">
+                <img style="height: 70px;" src="assets/php.png" alt="">
+                <img style="height: 70px;" src="assets/laravel.png" alt="">
+                <img style="height: 70px;" src="assets/express.png" alt="">
+                <img style="height: 70px;" src="assets/mongodb.png" alt="">
+                <img style="height: 20px;" src="assets/tailwindcss.png" alt="">
+                <img style="height: 70px;" src="assets/figma.png" alt="">
+                <img style="height: 70px;" src="assets/python.png" alt="">
+            </div>
+        </div>
+        <div class="container">
+            <div class="projects">
+                <h2>Projects</h2>
+                <div class="project-list">
+                   
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+<script>
+    const texts = [
+      "Software Engineer",
+      "Full Stack Developer",
+      "Front End Developer",
+      "Back End Developer"
+    ];
+
+    const typingSpeedBase = 100;
+    const deletingSpeedBase = 50;
+    const pauseTime = 1000;
+
+    let index = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    const element = document.getElementById("typewriter");
+
+    function type() {
+      const current = texts[index];
+
+      if (isDeleting) {
+        charIndex--;
+        element.textContent = current.substring(0, charIndex);
+      } else {
+        charIndex++;
+        element.textContent = current.substring(0, charIndex);
+      }
+
+      // Fade-in effect
+      if (charIndex === 1 && !isDeleting) {
+        element.classList.add("show");
+      }
+
+      // Fade-out when deleting finished
+      if (isDeleting && charIndex === 0) {
+        element.classList.remove("show");
+        isDeleting = false;
+        index = (index + 1) % texts.length;
+      }
+
+      let speed = isDeleting 
+        ? deletingSpeedBase + Math.random() * 50 
+        : typingSpeedBase + Math.random() * 100;
+
+      if (!isDeleting && charIndex === current.length) {
+        setTimeout(() => isDeleting = true, pauseTime);
+      }
+
+      setTimeout(type, speed);
+    }
+
+    type();
+
+    function openModal() {
+      document.getElementById('modal').classList.add('show');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('show');
+    }
+
+    // Optional: Close when clicking outside modal
+    window.addEventListener('click', (e) => {
+      const modal = document.getElementById('modal');
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+</script>
+<style>
+    *, html{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body{
+        height: 100vh;
+    }
+
+    .container{
+        padding-top: 100px;
+        background-color: #fefefe;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        gap: 20px;
+    }
+
+    .logo-img{
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .bio-text{
+        font-family: monospace;
+        font-size: 35px;
+        border-right: 2px solid black;
+        white-space: nowrap;
+        overflow: hidden;
+        height: 38px;
+        animation: blink 0.7s step-end infinite;
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent; }
+      50% { border-color: black; }
+    }
+
+    .greeting{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .wave{
+        font-size: 35px;
+    }
+
+    .about{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 30px 16%;
+        text-align: justify;
+        font-size: 18px;
+    }
+
+    nav{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        position: fixed;
+        height: 70px;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        background-color: #fefefe;
+    }
+
+    .contact-btn{
+        color: #000;
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: 2px solid black;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .contact-btn:hover{
+        background-color: #000;
+        color: #fff;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+    }
+
+    /* Modal Box */
+    .modal {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 400px;
+      text-align: center;
+      animation: slideDown 0.4s ease;
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Close Button */
+    .close-btn {
+      background: #ff4d4d;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    .contact-info{
+        margin-top: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .skills{
+        display: flex;
+        align-items: center;
+        gap: 60px;
+        flex-wrap: wrap;
+        width: 80%;
+        justify-content: center;
+    }
+
+</style>
+
+</html>
